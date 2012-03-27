@@ -208,7 +208,7 @@ public class Configurator {
 						+ " null or not present using default values TRUE");
 			}
 
-			Boolean space = false;
+			Boolean space = true;
 			try {
 				String space_str = _propsq.getProperty(_queryName + "."
 						+ Constants.QUERY_SPACE);
