@@ -85,6 +85,9 @@ public class Querybox {
 				Properties prp = Configurator.getPropsFromFile(_extraqueriesfile);
 				extraq =Configurator.getQueries(prp);
 			}
+			else {
+				extraq = new Query[0];
+			}
 		
 			Query[] refreshedq = addQueries(firstq,extraq);
 			if (this._query==null){
@@ -104,7 +107,7 @@ public class Querybox {
 			
 		}catch (Exception ex){
 			SmartLogger.logThis(Level.ERROR, "Error on Querybox "+ex);
-			
+			ex.printStackTrace();
 		}
 		
 	
