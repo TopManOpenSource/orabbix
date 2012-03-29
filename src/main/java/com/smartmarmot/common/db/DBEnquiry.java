@@ -188,7 +188,6 @@ public class DBEnquiry {
 							{
 								if (hasData) {
 									StringTokenizer st = new StringTokenizer(result, " ");
-									SmartLogger.logThis(Level.INFO, "ItemColumns result: "+result);
 									int c=0;
 									while (st.hasMoreTokens()) {
 										String token = st.nextToken().toString();
