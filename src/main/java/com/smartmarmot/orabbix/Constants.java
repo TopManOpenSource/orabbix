@@ -60,4 +60,5 @@ public class Constants {
 	public static final String QUERY_TRIM = "Trim";
 	public static final String QUERY_SPACE = "AddSpaces";
 	public static final String QUERY_EXCLUDE_COLUMNS = "ExcludeColumnsList";
+	public static final String QUERY_ITEM_COLUMNS = "ItemColumnsList";
 }

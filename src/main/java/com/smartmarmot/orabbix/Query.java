@@ -37,11 +37,12 @@ public class Query {
 	private List<Integer> excludeColumns = null;
 	private Boolean space = false;
 	private Boolean trim = true;
+	private List<String> itemColumns = null;
 
 	public Query(String _query, String _name, String _nodata, String _rccondq,
 			String _rccondval, int _period, Boolean _active, Boolean _trim,
 			Boolean _space, List<Integer> _excludeColumns,
-			List<Integer> _raceExcludeColumns) {
+			List<Integer> _raceExcludeColumns, List<String> _itemColumns) {
 		if (_query == null || _query.length() == 0)
 			throw new RuntimeException("empty query");
 		this.sql = _query;
@@ -84,6 +85,9 @@ public class Query {
 		}
 		if (_raceExcludeColumns != null) {
 			this.setRaceExcludeColumnsList(_raceExcludeColumns);
+		}
+		if (_itemColumns != null) {
+			this.setItemColumns(_itemColumns);
 		}
 	}
 
@@ -167,5 +171,11 @@ public class Query {
 	}
 	public List<Integer> getRaceExcludeColumnsList() {
 		return raceExcludeColumns;
+	}
+	public List<String> getItemColumns() {
+		return itemColumns;
+	}
+	public void setItemColumns(List<String> itemColumns) {
+		this.itemColumns = itemColumns;
 	}
 }

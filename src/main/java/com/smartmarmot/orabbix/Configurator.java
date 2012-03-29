@@ -263,12 +263,29 @@ public class Configurator {
 						+ Constants.RACE_CONDITION_EXCLUDE_COLUMNS + " error "
 						+ ex.getMessage());
 			}
-			
-			
-			
+						
+			List<String> itemColumns = new ArrayList<String>();
+			try {
+				String itemColumnsList = new String(_propsq
+						.getProperty(_queryName + "."
+								+ Constants.QUERY_ITEM_COLUMNS));
+
+				StringTokenizer st = new StringTokenizer(itemColumnsList,
+						Constants.DELIMITER);
+				while (st.hasMoreTokens()) {
+					String token = st.nextToken().toString();
+					itemColumns.add(token);
+					space = true;
+				}
+			} catch (Exception ex) {
+				SmartLogger.logThis(Level.DEBUG, "Note: " + _queryName + "."
+						+ Constants.QUERY_ITEM_COLUMNS + " error "
+						+ ex.getMessage());
+			}		
+						
 			Query q = new Query(query, _queryName, noDataFound, raceCondQuery,
 					raceCondValue, period, active, trim, space, excludeColumns,
-					raceExcludeColumns);
+					raceExcludeColumns, itemColumns);
 
 			return q;
 		} catch (Exception ex) {

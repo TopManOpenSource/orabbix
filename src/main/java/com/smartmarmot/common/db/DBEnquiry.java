@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.log4j.Level;
 
@@ -167,21 +168,52 @@ public class DBEnquiry {
 											.getSpace(), 
 											_queries[i]
 											.getExcludeColumnsList());
+							
+							boolean hasData = true;
 							if (result == null) {
 								if (_queries[i].getNoData().length() > 0
 										&& _queries[i].getNoData() != null) {
 									result = _queries[i].getNoData();
+									hasData = false;
 								}
 							} else if (result.length() == 0) {
 								if (_queries[i].getNoData().length() > 0
 										&& _queries[i].getNoData() != null) {
 									result = _queries[i].getNoData();
+									hasData = false;
 								}
 							}
 
-							ZabbixItem zitem = new ZabbixItem(_queries[i]
+							if (_queries[i].getItemColumns() != null && !_queries[i].getItemColumns().isEmpty() )
+							{
+								if (hasData) {
+									StringTokenizer st = new StringTokenizer(result, " ");
+									SmartLogger.logThis(Level.INFO, "ItemColumns result: "+result);
+									int c=0;
+									while (st.hasMoreTokens()) {
+										String token = st.nextToken().toString();
+										ZabbixItem zitem = new ZabbixItem(_queries[i]
+												.getName()+'_'+_queries[i].getItemColumns().get(c++),
+											token, dbname);
+										SZItems.add(zitem);
+									}
+								}
+								else {
+									for (String c : _queries[i].getItemColumns()) {
+										ZabbixItem zitem = new ZabbixItem(_queries[i]
+												.getName()+'_'+c,
+											result, dbname);
+										SZItems.add(zitem);
+									}
+								}
+							}
+							else
+							{
+								ZabbixItem zitem = new ZabbixItem(_queries[i]
 									.getName(), result,dbname);
-							SZItems.add(zitem);
+								SZItems.add(zitem);
+							}
+							
 							SmartLogger.logThis(Level.DEBUG,
 									"I'm going to return " + result
 											+ " for query "
