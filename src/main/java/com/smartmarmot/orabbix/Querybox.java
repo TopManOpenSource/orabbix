@@ -107,7 +107,6 @@ public class Querybox {
 			
 		}catch (Exception ex){
 			SmartLogger.logThis(Level.ERROR, "Error on Querybox "+ex);
-			ex.printStackTrace();
 		}
 		
 	
